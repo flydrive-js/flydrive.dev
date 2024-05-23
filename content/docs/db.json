@@ -1,0 +1,80 @@
+[
+  {
+    "permalink": "introduction",
+    "title": "Introduction",
+    "contentPath": "./introduction.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "getting_started",
+    "title": "Getting started",
+    "contentPath": "./getting_started.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "key_concepts",
+    "title": "Key concepts",
+    "contentPath": "./key_concepts.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "disk_api",
+    "title": "Disk API",
+    "contentPath": "./disk_api.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "file_api",
+    "title": "File API",
+    "contentPath": "./file_api.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "drive_manager",
+    "title": "Drive Manager",
+    "contentPath": "./drive_manager.md",
+    "category": "Guides"
+  },
+  {
+    "permalink": "services/fs",
+    "title": "Local File system",
+    "contentPath": "./services/fs.md",
+    "category": "Services"
+  },
+  {
+    "permalink": "services/s3",
+    "title": "AWS S3",
+    "contentPath": "./services/s3.md",
+    "category": "Services"
+  },
+  {
+    "permalink": "services/r2",
+    "title": "Cloudflare R2",
+    "contentPath": "./services/r2.md",
+    "category": "Services"
+  },
+  {
+    "permalink": "services/digital_ocean",
+    "title": "Digital Ocean Spaces",
+    "contentPath": "./services/digital_ocean.md",
+    "category": "Services"
+  },
+  {
+    "permalink": "services/gcs",
+    "title": "Google Cloud Storage",
+    "contentPath": "./services/gcs.md",
+    "category": "Services"
+  },
+  {
+    "permalink": "advanced/custom_drivers",
+    "title": "Creating a driver",
+    "contentPath": "./advanced/custom_drivers.md",
+    "category": "Advanced"
+  },
+  {
+    "permalink": "advanced/mime_type_detection",
+    "title": "Mime-type detection",
+    "contentPath": "./advanced/mime_type_detection.md",
+    "category": "Advanced"
+  }
+]
