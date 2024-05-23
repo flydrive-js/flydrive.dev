@@ -42,3 +42,7 @@ Drive can be an excellent fit for applications that use cloud storage services t
 - Read the [getting started guide](./getting_started.md) to install and use Drive.
 - Learn about the [key concepts](./key_concepts.md) and design decisions of Drive.
 - View [available API methods](./disk_api.md).
+
+## Sponsors
+
+::include{template="partials/sponsors"}
