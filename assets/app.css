@@ -8,18 +8,18 @@
 @import "@radix-ui/colors/mauve-dark-alpha.css";
 
 /* Accent colors */
-@import "@radix-ui/colors/crimson.css";
-@import "@radix-ui/colors/crimson-alpha.css";
-@import "@radix-ui/colors/crimson-dark.css";
-@import "@radix-ui/colors/crimson-dark-alpha.css";
+@import "@radix-ui/colors/plum.css";
+@import "@radix-ui/colors/plum-alpha.css";
+@import "@radix-ui/colors/plum-dark.css";
+@import "@radix-ui/colors/plum-dark-alpha.css";
 
 /* Interface colors */
 @import "@radix-ui/colors/orange-alpha.css";
-@import "@radix-ui/colors/crimson-alpha.css";
+@import "@radix-ui/colors/plum-alpha.css";
 @import "@radix-ui/colors/red.css";
 @import "@radix-ui/colors/red-alpha.css";
 @import "@radix-ui/colors/orange-dark-alpha.css";
-@import "@radix-ui/colors/crimson-dark-alpha.css";
+@import "@radix-ui/colors/plum-dark-alpha.css";
 
 /**
  * Dimer doc theme styles
@@ -65,33 +65,33 @@
   --neutral-gray-a11: var(--mauve-a11);
   --neutral-gray-a12: var(--mauve-a12);
 
-  --accent-1: var(--crimson-1);
-  --accent-2: var(--crimson-2);
-  --accent-3: var(--crimson-3);
-  --accent-4: var(--crimson-4);
-  --accent-5: var(--crimson-5);
-  --accent-6: var(--crimson-6);
-  --accent-7: var(--crimson-7);
-  --accent-8: var(--crimson-8);
-  --accent-9: var(--crimson-9);
-  --accent-10: var(--crimson-10);
-  --accent-11: var(--crimson-11);
-  --accent-12: var(--crimson-12);
+  --accent-1: var(--plum-1);
+  --accent-2: var(--plum-2);
+  --accent-3: var(--plum-3);
+  --accent-4: var(--plum-4);
+  --accent-5: var(--plum-5);
+  --accent-6: var(--plum-6);
+  --accent-7: var(--plum-7);
+  --accent-8: var(--plum-8);
+  --accent-9: var(--plum-9);
+  --accent-10: var(--plum-10);
+  --accent-11: var(--plum-11);
+  --accent-12: var(--plum-12);
 
-  --accent-a1: var(--crimson-a1);
-  --accent-a2: var(--crimson-a2);
-  --accent-a3: var(--crimson-a3);
-  --accent-a4: var(--crimson-a4);
-  --accent-a5: var(--crimson-a5);
-  --accent-a6: var(--crimson-a6);
-  --accent-a7: var(--crimson-a7);
-  --accent-a8: var(--crimson-a8);
-  --accent-a9: var(--crimson-a9);
-  --accent-a10: var(--crimson-a10);
-  --accent-a11: var(--crimson-a11);
-  --accent-a12: var(--crimson-a12);
+  --accent-a1: var(--plum-a1);
+  --accent-a2: var(--plum-a2);
+  --accent-a3: var(--plum-a3);
+  --accent-a4: var(--plum-a4);
+  --accent-a5: var(--plum-a5);
+  --accent-a6: var(--plum-a6);
+  --accent-a7: var(--plum-a7);
+  --accent-a8: var(--plum-a8);
+  --accent-a9: var(--plum-a9);
+  --accent-a10: var(--plum-a10);
+  --accent-a11: var(--plum-a11);
+  --accent-a12: var(--plum-a12);
 
-  --sidebar-active-link-text-color: var(--crimson-12);
+  --sidebar-active-link-text-color: var(--plum-12);
   --pre-tabs-active-border-color: var(--accent-9);
   --active-board-bg-color: #f3fbf9;
   --next-board-bg-color: #fff7ed;
@@ -131,31 +131,31 @@ html.dark {
   --neutral-gray-a11: var(--mauve-a11);
   --neutral-gray-a12: var(--mauve-a12);
 
-  --accent-1: var(--crimson-1);
-  --accent-2: var(--crimson-2);
-  --accent-3: var(--crimson-3);
-  --accent-4: var(--crimson-4);
-  --accent-5: var(--crimson-5);
-  --accent-6: var(--crimson-6);
-  --accent-7: var(--crimson-7);
-  --accent-8: var(--crimson-8);
-  --accent-9: var(--crimson-9);
-  --accent-10: var(--crimson-10);
-  --accent-11: var(--crimson-11);
-  --accent-12: var(--crimson-12);
+  --accent-1: var(--plum-1);
+  --accent-2: var(--plum-2);
+  --accent-3: var(--plum-3);
+  --accent-4: var(--plum-4);
+  --accent-5: var(--plum-5);
+  --accent-6: var(--plum-6);
+  --accent-7: var(--plum-7);
+  --accent-8: var(--plum-8);
+  --accent-9: var(--plum-9);
+  --accent-10: var(--plum-10);
+  --accent-11: var(--plum-11);
+  --accent-12: var(--plum-12);
 
-  --accent-a1: var(--crimson-a1);
-  --accent-a2: var(--crimson-a2);
-  --accent-a3: var(--crimson-a3);
-  --accent-a4: var(--crimson-a4);
-  --accent-a5: var(--crimson-a5);
-  --accent-a6: var(--crimson-a6);
-  --accent-a7: var(--crimson-a7);
-  --accent-a8: var(--crimson-a8);
-  --accent-a9: var(--crimson-a9);
-  --accent-a10: var(--crimson-a10);
-  --accent-a11: var(--crimson-a11);
-  --accent-a12: var(--crimson-a12);
+  --accent-a1: var(--plum-a1);
+  --accent-a2: var(--plum-a2);
+  --accent-a3: var(--plum-a3);
+  --accent-a4: var(--plum-a4);
+  --accent-a5: var(--plum-a5);
+  --accent-a6: var(--plum-a6);
+  --accent-a7: var(--plum-a7);
+  --accent-a8: var(--plum-a8);
+  --accent-a9: var(--plum-a9);
+  --accent-a10: var(--plum-a10);
+  --accent-a11: var(--plum-a11);
+  --accent-a12: var(--plum-a12);
 
   --active-board-bg-color: #111c1b;
   --next-board-bg-color: #1e160f;
