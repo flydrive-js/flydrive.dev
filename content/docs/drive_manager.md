@@ -20,20 +20,22 @@ export const drive = new DriveManager({
    * A collection of services you plan to use in your application
    */
   services: {
-    fs: () => new FSDriver({
-      location: new URL('./uploads', import.meta.url),
-      visibility: 'public',
-    }),
-    gcs: () => new GCSDriver({
-      region: 'sgp1',
-      endpoint: 'https://sgp1.digitaloceanspaces.com',
-      credentials: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-      },
-      visibility: 'public',
-    })  
-  }
+    fs: () =>
+      new FSDriver({
+        location: new URL('./uploads', import.meta.url),
+        visibility: 'public',
+      }),
+    gcs: () =>
+      new GCSDriver({
+        region: 'sgp1',
+        endpoint: 'https://sgp1.digitaloceanspaces.com',
+        credentials: {
+          accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+          secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+        },
+        visibility: 'public',
+      }),
+  },
 })
 ```
 
@@ -90,6 +92,7 @@ const disk = drive.use('gcs')
 ```
 
 ## Using fakes
+
 The fake API of Drive Manager could be used when writing tests. In the fake mode, the `drive.use` method will return an instance of Disk with `fs` driver. Therefore, all files are written to the local filesystem even when using a remote storage provider.
 
 In the following example, we create and export an instance of `DriveManager` from the `services/drive.ts` file. Your application code and tests should use the same service.
@@ -104,13 +107,15 @@ export const drive = new DriveManager({
   default: 'fs',
 
   services: {
-    fs: () => new FSDriver({
-      // config goes here
-    }),
-    gcs: () => new GCSDriver({
-      // config goes here
-    }),
-  }
+    fs: () =>
+      new FSDriver({
+        // config goes here
+      }),
+    gcs: () =>
+      new GCSDriver({
+        // config goes here
+      }),
+  },
 })
 ```
 

@@ -21,7 +21,7 @@ const userAvatar = disk.file(key)
 const contents = await userAvatar.get()
 ```
 
-All the read-only methods from the [Disk](./disk_api.md) class are also available in the `DriveFile` class. 
+All the read-only methods from the [Disk](./disk_api.md) class are also available in the `DriveFile` class.
 
 ```ts
 const file = disk.file(key)
@@ -54,7 +54,8 @@ await file.exists()
 ```
 
 ## Working with the file snapshot
-You can create a snapshot of a file using the `file.toSnapshot` method and persist it inside the database. The snapshot includes the file key and [its metadata](./disk_api.md#getmetadata). Snapshots can be a great way to list files in a UI without retrieving their metadata from the cloud provider. 
+
+You can create a snapshot of a file using the `file.toSnapshot` method and persist it inside the database. The snapshot includes the file key and [its metadata](./disk_api.md#getmetadata). Snapshots can be a great way to list files in a UI without retrieving their metadata from the cloud provider.
 
 ```ts
 const file = disk.file(key)
@@ -72,7 +73,7 @@ console.log(snapshot)
 */
 ```
 
-Later, you can create an instance of the file from the snapshot using the `disk.fromSnapshot` method. 
+Later, you can create an instance of the file from the snapshot using the `disk.fromSnapshot` method.
 
 The file instance created using the `fromSnapshot` method caches the file metadata. However, to re-fetch fresh metadata, you must create the file instance using the `disk.file` method.
 

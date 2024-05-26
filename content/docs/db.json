@@ -70,11 +70,5 @@
     "title": "Creating a driver",
     "contentPath": "./advanced/custom_drivers.md",
     "category": "Advanced"
-  },
-  {
-    "permalink": "advanced/mime_type_detection",
-    "title": "Mime-type detection",
-    "contentPath": "./advanced/mime_type_detection.md",
-    "category": "Advanced"
   }
 ]

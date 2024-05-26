@@ -1,1 +1,0 @@
-# Mime-type detection

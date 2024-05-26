@@ -18,6 +18,8 @@
   },
   "devDependencies": {
     "@adonisjs/assembler": "^7.1.1",
+    "@adonisjs/eslint-config": "^1.3.0",
+    "@adonisjs/prettier-config": "^1.3.0",
     "@adonisjs/tsconfig": "^1.2.1",
     "@adonisjs/vite": "^2.0.2",
     "@alpinejs/persist": "^3.13.5",
@@ -33,8 +35,10 @@
     "concurrently": "^8.2.2",
     "copyfiles": "^2.4.1",
     "edge-uikit": "^1.0.0-1",
+    "eslint": "^8.57.0",
     "medium-zoom": "^1.1.0",
     "pino-pretty": "^10.3.1",
+    "prettier": "^3.2.5",
     "reflect-metadata": "^0.2.1",
     "ts-node": "^10.9.2",
     "typescript": "^5.3.3",
@@ -46,5 +50,9 @@
     "@adonisjs/core": "^6.2.3",
     "@adonisjs/static": "^1.1.1",
     "edge.js": "^6.0.1"
+  },
+  "prettier": "@adonisjs/prettier-config",
+  "eslintConfig": {
+    "extends": "@adonisjs/eslint-config/app"
   }
 }

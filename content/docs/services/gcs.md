@@ -1,4 +1,5 @@
 # Google Cloud Storage
+
 You may use the [GCS Driver](https://github.com/flydrive-js/core/blob/develop/drivers/gcs/driver.ts) to manage files using Google Cloud Storage. Make sure to install the following peer dependency in your project.
 
 ```sh
@@ -16,13 +17,12 @@ const disk = new Disk(
     credentials: 'GCS_KEY',
     visibility: 'public',
     bucket: 'GCS_BUCKET',
-    usingUniformAcl: true
+    usingUniformAcl: true,
   })
 )
 ```
 
 You can pass all the options accepted by the [@google-cloud/storage](https://googleapis.dev/nodejs/storage/latest/global.html#StorageOptions) package to the `GCSDriver` along with the following/required options.
-
 
 <dl>
 
@@ -73,13 +73,14 @@ urlBuilder
 
 <dd>
 
-Define a custom URL builder for creating public and signed URLs. [Learn more]()
+Define a custom URL builder for creating public and signed URLs. [Learn more](#creating-public-urls)
 
 </dd>
 
 </dl>
 
 ## Using an existing Storage client
+
 If you already have an instance of the `Storage` class from the `@google-cloud/storage` package. You may pass it directly to the Flydrive `GCSDriver` as follows.
 
 ```ts
@@ -89,7 +90,7 @@ import { Storage } from '@google-cloud/storage'
 // highlight-start
 const storage = new Storage({
   projectId: 'your-project-id',
-  keyFilename: '/path/to/keyfile.json'
+  keyFilename: '/path/to/keyfile.json',
 })
 // highlight-end
 
@@ -103,6 +104,7 @@ const driver = new GCSDriver({
 ```
 
 ## Creating public URLs
+
 Public URLs can be created for files uploaded to GCS with `public` visibility. By default, GCS will [automatically cache public objects](https://cloud.google.com/storage/docs/caching) and serve them via its CDN and hence you do not have to configure any CDN URL with Drive.
 
 ```ts
@@ -111,7 +113,7 @@ const disk = new Disk(
     credentials: 'GCS_KEY',
     visibility: 'public',
     bucket: 'GCS_BUCKET',
-    usingUniformAcl: true
+    usingUniformAcl: true,
   })
 )
 
@@ -133,8 +135,8 @@ const disk = new Disk(
     urlBuilder: {
       async generateURL(key, bucket, storage) {
         return `https://some-custom-url/files/${bucket}/${key}`
-      }
-    }
+      },
+    },
     // insert-end
   })
 )
@@ -144,15 +146,14 @@ console.log(URL) // https://some-custom-url/files/testing-drive/avatar.png
 ```
 
 ## Creating signed URLs
+
 Signed URLs are created to provide time-based access to a private file hosted on GCS. For example:
 
 ```ts
-const disk = new Disk(
-  new GCSDriver({})
-)
+const disk = new Disk(new GCSDriver({}))
 
 const signedURL = await disk.getSignedUrl('invoice.pdf', {
-  expiresIn: '30mins'
+  expiresIn: '30mins',
 })
 ```
 

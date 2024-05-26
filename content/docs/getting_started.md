@@ -42,6 +42,7 @@ const disk = new Disk(fsDriver)
 ```
 
 ## CRUD operations
+
 Once you have created an instance of the `Disk` class, you can use it to perform CRUD operations on a file. For example:
 
 See also: [Disk API](./disk_api.md)
@@ -87,7 +88,8 @@ await disk.delete(key)
 ```
 
 ## Using multiple drivers
-You may use multiple drivers within a single application and/or switch between them depending upon the environment in which your app is running. 
+
+You may use multiple drivers within a single application and/or switch between them depending upon the environment in which your app is running.
 
 Here's an example of managing drivers using environment variables. Feel free to tweak the example as per your application requirements.
 
@@ -102,19 +104,21 @@ import { GCSDriver } from 'flydrive/drivers/gcs'
  * Step 1. Define a collection of drivers you plan to use
  */
 const drivers = {
-  fs: () => new FSDriver({
-    location: new URL('./uploads', import.meta.url),
-    visibility: 'public',
-  }),
-  gcs: () => new GCSDriver({
-    region: 'sgp1',
-    endpoint: 'https://sgp1.digitaloceanspaces.com',
-    credentials: {
-      accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-      secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    },
-    visibility: 'public',
-  })
+  fs: () =>
+    new FSDriver({
+      location: new URL('./uploads', import.meta.url),
+      visibility: 'public',
+    }),
+  gcs: () =>
+    new GCSDriver({
+      region: 'sgp1',
+      endpoint: 'https://sgp1.digitaloceanspaces.com',
+      credentials: {
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
+      },
+      visibility: 'public',
+    }),
 }
 
 /**

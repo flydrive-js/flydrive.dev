@@ -1,4 +1,5 @@
 # Digital Ocean Spaces
+
 [Digital Ocean Spaces](https://www.digitalocean.com/products/spaces) is an S3-compatible storage service. Therefore, you can use the [S3Driver](https://github.com/flydrive-js/core/blob/develop/drivers/s3/driver.ts) to manage files on DO Spaces. Make sure to install the following peer dependencies in your project.
 
 ```sh
@@ -69,10 +70,10 @@ The `bucket` option defines the S3 bucket to use for managing files.
 
 </dd>
 
-
 </dl>
 
 ## Creating public URLs
+
 Public URLs can be created for files uploaded to DO spaces with `public` visibility. The public URL can point to a CDN if you have configured the `cdnUrl` inside the driver config. Otherwise, it will fallback to the endpoint of your bucket region. For example:
 
 ```ts
@@ -83,7 +84,7 @@ const disk = new Disk(
     cdnUrl: 'https://testing-drive.sgp1.cdn.digitaloceanspaces.com',
     // highlight-end
     endpoint: 'https://sgp1.digitaloceanspaces.com',
-    bucket: 'testing-drive'
+    bucket: 'testing-drive',
   })
 )
 
@@ -99,7 +100,7 @@ const disk = new Disk(
     cdnUrl: 'https://testing-drive.sgp1.cdn.digitaloceanspaces.com',
     // delete-end
     endpoint: 'https://sgp1.digitaloceanspaces.com',
-    bucket: 'testing-drive'
+    bucket: 'testing-drive',
   })
 )
 
@@ -119,8 +120,8 @@ const disk = new Disk(
     urlBuilder: {
       async generateURL(key, bucket, s3Client) {
         return `https://some-custom-url/files/${bucket}/${key}`
-      }
-    }
+      },
+    },
     // insert-end
   })
 )
@@ -130,15 +131,14 @@ console.log(URL) // https://some-custom-url/files/testing-drive/avatar.png
 ```
 
 ## Creating signed URLs
+
 Signed URLs are created to provide time-based access to a private file hosted on DO spaces. For example:
 
 ```ts
-const disk = new Disk(
-  new S3Driver({})
-)
+const disk = new Disk(new S3Driver({}))
 
 const signedURL = await disk.getSignedUrl('invoice.pdf', {
-  expiresIn: '30mins'
+  expiresIn: '30mins',
 })
 ```
 
@@ -153,6 +153,6 @@ await disk.getSignedUrl('invoice.pdf', {
   /**
    * Additional options applicable for S3 only
    */
-  ResponseCacheControl: 'max-age=604800'
+  ResponseCacheControl: 'max-age=604800',
 })
 ```
