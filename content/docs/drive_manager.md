@@ -95,16 +95,25 @@ const disk = drive.use('gcs')
 
 The fake API of Drive Manager could be used when writing tests. In the fake mode, the `drive.use` method will return an instance of Disk with `fs` driver. Therefore, all files are written to the local filesystem even when using a remote storage provider.
 
-In the following example, we create and export an instance of `DriveManager` from the `services/drive.ts` file. Your application code and tests should use the same service.
+In order to use fakes, you must configure a filesystem location where the files should be written during tests. Drive manager will ensure to cleanup these files when you restore fakes.
 
 ```ts
-// title: services/drive.ts
-import { DriveManager } from 'flydrive'
-import { FSDriver } from 'flydrive/drivers/fs'
-import { GCSDriver } from 'flydrive/drivers/gcs'
-
 export const drive = new DriveManager({
   default: 'fs',
+
+  // highlight-start
+  fakes: {
+    location: new URL('./tmp/fakes', import.meta.url),
+    urlBuilder: {
+      generateURL(key, filePath) {
+        return `url-to-file`
+      },
+      generateSignedURL(key, filePath, options) {
+        return `signed-url-to-file`
+      },
+    },
+  },
+  // highlight-end
 
   services: {
     fs: () =>
@@ -160,7 +169,7 @@ test('save user uploaded file', async () => {
 })
 ```
 
-The `drive.fake` method returns a `fakes` object that can be used to write assertions. Following is the list of available assertion methods.
+The `drive.fake` method returns a [`fakes` object](https://github.com/flydrive-js/core/blob/develop/src/fake_disk.ts) that can be used to write assertions. Following is the list of available assertion methods.
 
 ```ts
 const fakes = drive.fake('gcs')
