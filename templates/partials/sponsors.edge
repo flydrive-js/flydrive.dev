@@ -1,10 +1,6 @@
 @let(sponsors = await getSponsors())
 
 <div class="sponsors_wrapper">
-  <p>
-    Explain sponsorship program here
-  </p>
-
   {{-- Rendering Github sponsors as per their selected tier --}}
   @!component('docs::elements/sponsors', {
     sponsors,
