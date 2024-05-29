@@ -1,7 +1,7 @@
 @let(sponsors = await getSponsors())
 
 <div class="sponsors_wrapper">
-  {{-- Rendering Github sponsors as per their selected tier --}}
+  {{-- Rendering gitHub sponsors as per their selected tier --}}
   @!component('docs::elements/sponsors', {
     sponsors,
     tier: 'gold',
