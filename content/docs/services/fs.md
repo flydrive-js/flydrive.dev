@@ -2,7 +2,7 @@
 
 You may use the [FS Driver](https://github.com/flydrive-js/core/blob/develop/drivers/gcs/driver.ts) to store files on the local file system. The visibility flag has no impact when using the FS driver, and it is up to your application to decide how to serve locally stored files.
 
-You can create an instance of the FS Driver and use it as follows. The `location` property servers as the root directory from where files are read and stored. The value can be a `URL` or an absolute path to a directory.
+You can create an instance of the FS Driver and use it as follows. The `location` property serves as the root directory from where files are read and stored. The value can be a `URL` or an absolute path to a directory.
 
 ```ts
 import { Disk } from 'flydrive'
