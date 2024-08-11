@@ -15,8 +15,8 @@ import { S3Driver } from 'flydrive/drivers/s3'
 const disk = new Disk(
   new S3Driver({
     credentials: {
-      accessKeyId: 'AWS_ACCESS_KEY',
-      secretAccessKey: 'AWS_ACCESS_SECRET',
+      accessKeyId: 'SPACES_KEY',
+      secretAccessKey: 'SPACES_SECRET',
     },
 
     // highlight-start
@@ -24,7 +24,7 @@ const disk = new Disk(
     region: 'sgp1',
     // highlight-end
 
-    bucket: 'DO_BUCKET',
+    bucket: 'SPACES_BUCKET',
     visibility: 'private',
   })
 )
@@ -42,7 +42,7 @@ endpoint
 
 <dd>
 
-Make sure to always define the `endpoint` of the Digital Ocean Spaces service.
+Make sure to always define the `endpoint` of the Digital Ocean Spaces service. The endpoint should not include the bucket name.
 
 </dd>
 
@@ -66,7 +66,7 @@ bucket
 
 <dd>
 
-The `bucket` option defines the S3 bucket to use for managing files.
+The `bucket` option defines the S3 bucket for managing files.
 
 </dd>
 
@@ -74,7 +74,7 @@ The `bucket` option defines the S3 bucket to use for managing files.
 
 ## Creating public URLs
 
-Public URLs can be created for files uploaded to DO spaces with `public` visibility. The public URL can point to a CDN if you have configured the `cdnUrl` inside the driver config. Otherwise, it will fallback to the endpoint of your bucket region. For example:
+Public URLs can be created for files uploaded to DO spaces with `public` visibility. The public URL can point to a CDN if you have configured the `cdnUrl` inside the driver config. Otherwise, it will fall back to the endpoint of your bucket region. For example:
 
 ```ts
 // title: When CDN URL is configured
@@ -105,13 +105,13 @@ const disk = new Disk(
 )
 
 const URL = await disk.getUrl('avatar.png')
-console.log(URL) // https://sgp1.digitaloceanspaces.com/avatar.png
+console.log(URL) // https://sgp1.digitaloceanspaces.com/testing-drive/avatar.png
 ```
 
-You may also self create a public URL by defining a custom URL builder within the config. For example:
+You may also create a public URL by defining a custom URL builder within the configuration. For example:
 
 ```ts
-// title: Self generating public URLs
+// title: Self-generating public URLs
 const disk = new Disk(
   new S3Driver({
     bucket: 'testing-drive',
@@ -155,4 +155,20 @@ await disk.getSignedUrl('invoice.pdf', {
    */
   ResponseCacheControl: 'max-age=604800',
 })
+```
+
+## Having issues?
+
+### Endpoint should not include the bucket name
+
+Even though the Digital Ocean control panel displays the endpoint with the bucket name, you cannot use it with the AWS SDK to manage files.
+
+[With the SDK](https://docs.digitalocean.com/products/spaces/how-to/use-aws-sdks/), it is recommended to use the following combination for the spaces endpoint.
+
+```sh
+https://<region>.digitaloceanspaces.com
+
+# Examples
+https://nyc3.digitaloceanspaces.com
+https://sgp.digitaloceanspaces.com
 ```
