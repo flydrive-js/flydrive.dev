@@ -101,7 +101,7 @@ const key = 'hello.txt'
 /**
  * Get Uint8Array
  */
-const arrayBuffer = await disk.getStream(key)
+const arrayBuffer = await disk.getArrayBuffer(key)
 console.log(new TextDecoder('utf-8').decode(arrayBuffer))
 ```
 
