@@ -36,7 +36,7 @@ export class AzureDriver implements DriverContract {
    * Return the file contents as a Uint8Array. Throw an exception
    * if the file is missing.
    */
-  async getArrayBuffer(key: string): Promise<ArrayBuffer> {}
+  async getBytes(key: string): Promise<Uint8Array> {}
 
   /**
    * Return metadata of the file. Throw an exception

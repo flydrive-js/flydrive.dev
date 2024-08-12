@@ -39,7 +39,7 @@ await file.getStream()
 /**
  * Get file contents as a Uint8Array
  */
-await file.getArrayBuffer()
+await file.getBytes()
 
 /**
  * Get file metadata

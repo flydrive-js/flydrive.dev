@@ -89,9 +89,9 @@ const readable = await disk.getStream(key)
 await pipeline(readable, createWriteStream('./some-file.txt', readable))
 ```
 
-## getArrayBuffer
+## getBytes
 
-The `disk.getArrayBuffer` method reads a file's contents as a `Uint8Array` stream. If the file does not exist, the method throws an exception.
+The `disk.getBytes` method reads a file's contents as a `Uint8Array` stream. If the file does not exist, the method throws an exception.
 
 ```ts
 const disk = new Disk(driver)
@@ -101,7 +101,7 @@ const key = 'hello.txt'
 /**
  * Get Uint8Array
  */
-const arrayBuffer = await disk.getArrayBuffer(key)
+const arrayBuffer = await disk.getBytes(key)
 console.log(new TextDecoder('utf-8').decode(arrayBuffer))
 ```
 

@@ -74,9 +74,9 @@ const contents = await disk.get(key)
 const stream = await disk.getStream(key)
 
 /**
- * Get contents as Uint8Buffer
+ * Get contents as Uint8Array
  */
-const buffer = await disk.getArrayBuffer(key)
+const buffer = await disk.getBytes(key)
 ```
 
 You can delete files using the `disk.delete` method.
