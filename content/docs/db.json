@@ -66,6 +66,12 @@
     "category": "Services"
   },
   {
+    "permalink": "services/supabase",
+    "title": "Supabase Storage",
+    "contentPath": "./services/supabase-storage.md",
+    "category": "Services"
+  },
+  {
     "permalink": "advanced/custom_drivers",
     "title": "Creating a driver",
     "contentPath": "./advanced/custom_drivers.md",
