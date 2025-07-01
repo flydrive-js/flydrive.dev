@@ -1,12 +1,12 @@
 # Disk API
 
-Disk acts as an adapter between your application code and the underlying driver. It offers a unified API for performing file system operations, wraps errors inside [generic exception classes](./key_concepts.md#unified-exceptions) and [normalizes the key](./key_concepts.md#working-with-keys-and-not-paths) before handing it over to a driver.
+Disk acts as an adapter between your application code and the underlying driver. It offers a unified API for performing file system operations, wraps errors inside [generic exception classes](./key_concepts.md#unified-exceptions), and [normalizes the key](./key_concepts.md#working-with-keys-and-not-paths) before handing it over to a driver.
 
 ![](./drive-architecture.jpeg)
 
 ## put
 
-The `disk.put` method is used to create a new file or update an existing file. The method accepts the file key as the first parameter and its contents as the second parameter.
+The `disk.put` method creates a new file or updates an existing file. It accepts the file key as the first parameter and its contents as the second parameter.
 
 ```ts
 const disk = new Disk(driver)
@@ -15,7 +15,7 @@ const key = 'hello.txt'
 const contents = 'hello world'
 
 /**
- * Write file from raw contents
+ * Write a file from raw contents
  */
 await disk.put(key, contents)
 ```
@@ -39,7 +39,7 @@ const key = 'hello.txt'
 const readable = createReadStream('./some-file.txt')
 
 /**
- * Write file from the readable stream
+ * Write a file from the readable stream
  */
 await disk.putStream(key, readable)
 ```
@@ -52,7 +52,7 @@ await disk.putStream(key, readable)
 
 ## get
 
-The `disk.get` method is used to read the contents of a file as a `UTF-8` string. The method throws an exception if the file does not exist.
+The `disk.get` method reads a file's contents as a `UTF-8` string. It throws an exception if the file does not exist.
 
 ```ts
 const disk = new Disk(driver)
@@ -107,7 +107,7 @@ console.log(new TextDecoder('utf-8').decode(arrayBuffer))
 
 ## delete
 
-The `disk.delete` method deletes a file for the given key. The delete operation ignores non-existing files and does not throw an error.
+The `disk.delete` method deletes a file for the given key. The delete operation ignores non-existent files and does not throw an error.
 
 ```ts
 const disk = new Disk(driver)
@@ -121,7 +121,7 @@ await disk.delete(key)
 The `disk.deleteAll` method deletes all the files matching the given prefix.
 
 - In the case of the `fs` driver, this method will remove the matching directory and all its files using the `fs.rm` method.
-- In the case of cloud providers like `gcs` and `s3`. This method will first fetch the list of files and delete them in parallel.
+- In the case of cloud providers like `gcs` and `s3`. This method will first fetch and delete the list of files in parallel.
 
 ```ts
 const disk = new Disk(driver)
@@ -132,7 +132,7 @@ await disk.deleteAll(prefix)
 
 ## copy
 
-The `disk.copy` method is used to copy a file within the same bucket. This method will throw an error if the file to copy does not exist. It will also override the existing destination file (if one exists).
+The `disk.copy` method copies a file within the same bucket. This method throws an error if the file to copy does not exist. It also overrides the existing destination file (if one exists).
 
 ```ts
 const disk = new Disk(driver)
@@ -151,7 +151,7 @@ await disk.copy(source, destination)
 
 ## move
 
-The `disk.move` method moves a file within the same bucket. This method will throw an error if the file that needs to be moved does not exist. Also, it will override the existing destination file (if one exists).
+The `disk.move` method moves a file within the same bucket. This method will throw an error if the file that needs to be moved does not exist. It will also override the existing destination file (if one exists).
 
 ```ts
 const disk = new Disk(driver)
@@ -216,7 +216,7 @@ By default, this method will return top-level files and directory names along wi
 const disk = new Disk(driver)
 
 /**
- * Think of prefix as a sub-folder from which you
+ * Think of the prefix as a subfolder from which you
  * want to list files. Use `/` to fetch files
  * from the top level of the bucket.
  */
@@ -331,7 +331,7 @@ console.log(metaData)
 
 ## exists
 
-The `disk.exists` method can be used to check if a file exists or not. The method returns a boolean value.
+The `disk.exists` method can be used to check whether a file exists. It returns a boolean value.
 
 ```ts
 const disk = new Disk(driver)
@@ -380,7 +380,7 @@ await disk.setVisibility(key, 'public')
 
 The `disk.getUrl` method returns the public URL of a file.
 
-This method does not check if the file exists or if the file has public visibility. So if needed, please perform these checks manually before generating and sharing the file's URL.
+This method does not check if the file exists or if it has public visibility. So, if needed, please perform these checks manually before generating and sharing the file's URL.
 
 :::note
 
@@ -400,7 +400,7 @@ console.log(url)
 
 The `disk.getSignedUrl` method returns a temporary signed URL of a file. This URL could be used to access a private file for a limited duration.
 
-This method does not check if the file exists or if the file has public visibility. So if needed, please perform these checks manually before generating and sharing the file's URL.
+This method does not check if the file exists or if it has public visibility. So, if needed, please perform these checks manually before generating and sharing the file's URL.
 
 :::note
 
@@ -425,6 +425,36 @@ The `getSignedUrl` method accepts the following arguments as the second paramete
 | expiresIn          | `string`, `number` | The duration after which the URL will expire. Defaults to `30 mins`                   |
 | contentType        | `string`           | Define the value of `Content-type` header set at the file of serving the file.        |
 | contentDisposition | `string`           | Define the value of `Content-Disposition` header set at the file of serving the file. |
+
+## getSignedUploadUrl
+
+The `disk.getSignedUploadUrl` method returns a signed URL for direct file upload.
+
+During direct upload, the client (aka browser) will first send a request to your Node.js server, where you will generate a signed URL and return it in response. Later, the client will use the signed URL to upload the file using the `PUT` HTTP method.
+
+:::note
+
+Make sure to also read the direct file upload section of the service you are using to manage file uploads.
+
+:::
+
+```ts
+const disk = new Disk(driver)
+const key = 'hello.txt'
+
+const url = await disk.getSignedUploadUrl(key, {
+  expiresIn: '30 mins',
+})
+
+console.log(url)
+```
+
+The `getSignedUploadUrl` method accepts the following arguments as the second parameter.
+
+| Option      | Type               | Description                                                                                                                              |
+| ----------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
+| expiresIn   | `string`, `number` | The duration after which the URL will expire. Defaults to `30 mins`                                                                      |
+| contentType | `string`           | Define the value of the `Content-type` header. During the file upload, you will have to set the `content-type` header to the same value. |
 
 ## Write options
 
@@ -476,7 +506,7 @@ contentType
 
 <dd>
 
-Define the `Content-type` header for the file. If not defined, it will be computed by the cloud service automatically.
+Define the `Content-type` header for the file. If not defined, the cloud service will compute it automatically.
 
 - The `fs` driver ignores this option.
 - The `gcs` driver will set the `metadata.cacheControl` option.
@@ -521,7 +551,7 @@ contentDisposition
 
 <dd>
 
-Define the `Content-Disposition` header for the file. If not defined, it will be computed by the cloud service automatically.
+Define the `Content-Disposition` header for the file. If not defined, the cloud service will compute it automatically.
 
 - The `fs` driver ignores this option.
 - The `gcs` driver also ignores this option.
@@ -551,7 +581,7 @@ contentLength
 
 <dd>
 
-Define the file `Content-Length` header. If it is not defined, the cloud service will compute it automatically.
+Define the file's `Content-Length` header. If it is not defined, the cloud service will compute it automatically.
 
 - The `fs` driver ignores this option.
 - The `gcs` driver also ignores this option.
