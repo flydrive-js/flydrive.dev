@@ -89,6 +89,24 @@ const readable = await disk.getStream(key)
 await pipeline(readable, createWriteStream('./some-file.txt', readable))
 ```
 
+You may stream a subset of the file's bytes by passing a [`range`](#read-options) argument in the `ReadOptions` object
+as the second argument. This is useful for serving `Range` HTTP requests, reading media segments, or inspecting file
+headers without downloading the entire object.
+
+```ts
+/**
+ * Stream only bytes 0 through 1023 (inclusive)
+ */
+const readable = await disk.getStream(key, {
+  range: { start: 0, end: 1023 },
+})
+```
+
+| Param   | Type                           | Description                                |
+| ------- | ------------------------------ | ------------------------------------------ |
+| key     | `string`                       | Location of the file                       |
+| options | [`ReadOptions`](#read-options) | An optional object to request a byte range |
+
 ## getBytes
 
 The `disk.getBytes` method reads a file's contents as a `Uint8Array` stream. If the file does not exist, the method throws an exception.
@@ -104,6 +122,23 @@ const key = 'hello.txt'
 const arrayBuffer = await disk.getBytes(key)
 console.log(new TextDecoder('utf-8').decode(arrayBuffer))
 ```
+
+Like `getStream`, you may read a subset of the file's bytes by passing a [`range`](#read-options) in the `ReadOptions`
+object as the second argument.
+
+```ts
+/**
+ * Read only the first 8 bytes of the file
+ */
+const arrayBuffer = await disk.getBytes(key, {
+  range: { start: 0, end: 7 },
+})
+```
+
+| Param   | Type                           | Description                                |
+| ------- | ------------------------------ | ------------------------------------------ |
+| key     | `string`                       | Location of the file                       |
+| options | [`ReadOptions`](#read-options) | An optional object to request a byte range |
 
 ## delete
 
@@ -455,6 +490,97 @@ The `getSignedUploadUrl` method accepts the following arguments as the second pa
 | ----------- | ------------------ | ---------------------------------------------------------------------------------------------------------------------------------------- |
 | expiresIn   | `string`, `number` | The duration after which the URL will expire. Defaults to `30 mins`                                                                      |
 | contentType | `string`           | Define the value of the `Content-type` header. During the file upload, you will have to set the `content-type` header to the same value. |
+
+## Read options
+
+The `disk.getStream` and `disk.getBytes` methods accept an optional `ReadOptions` object as their second parameter.
+Currently the only available option is `range`.
+
+### Range requests
+The `ReadOptions` `range` property lets you read a contiguous slice of a file instead of its full contents, which is
+helpful for serving HTTP `Range` requests, streaming media segments, or reading a file header.
+
+```ts
+/**
+ * Read bytes 200 through 299 (inclusive)
+ */
+await disk.getBytes(key, {
+  range: { start: 200, end: 299 },
+})
+```
+
+Both `start` and `end` are optional, **zero-based**, and **inclusive** byte positions.
+
+<dl>
+
+<dt>
+
+start
+
+</dt>
+
+<dd>
+
+The first byte to read, counting from `0`. When omitted, the range starts at the beginning of the file (byte `0`).
+A range of `{ start: 6 }` reads from byte `6` to the end of the file.
+
+</dd>
+
+<dt>
+
+end
+
+</dt>
+
+<dd>
+
+The last byte to read (inclusive). When omitted, the range continues to the end of the file.
+A range of `{ end: 4 }` reads the first five bytes (`0` through `4`).
+
+</dd>
+
+</dl>
+
+:::note
+
+Only absolute ranges are supported. Suffix ranges (e.g. "the last 500 bytes" via `bytes=-500`) and negative offsets are
+**not** supported and are rejected before any I/O.
+
+:::
+
+If both `start` and `end` are omitted (or an empty `range: {}` object is passed), the method behaves exactly as it would
+without a range and returns the full file contents.
+
+```ts
+// Reads from byte 6 to the end of the file
+await disk.getStream(key, { range: { start: 6 } })
+
+// Reads the first 5 bytes (0–4 inclusive)
+await disk.getStream(key, { range: { end: 4 } })
+
+// Reads a single byte
+await disk.getStream(key, { range: { start: 0, end: 0 } })
+```
+
+#### Range validation
+
+A range request is validated in two phases, and both throw a unified
+[`E_RANGE_UNSATISFIABLE`](./key_concepts.md#unified-exceptions) exception on failure:
+
+1. **Syntax validation** (before any I/O) — `start` and `end` must be non-negative integers, and `start` may not be greater than `end`.
+2. **Bounds validation** — the range must fall within the file's size. Because the underlying storage backends behave inconsistently with out-of-bounds ranges (`fs`, `gcs`, and `s3` may silently clamp or return empty data rather than erroring), FlyDrive performs a preflight size lookup and throws a consistent exception across all drivers when the range exceeds the file size.
+
+:::note
+
+To guarantee consistent error behaviour, ranged reads perform an additional metadata lookup before fetching data 
+(a `stat` for `fs`, a `getMetadata` call for `gcs`, and a `HeadObject` call for `s3`). This incurs one extra round-trip 
+for the cloud drivers. Non-ranged reads are unaffected.
+
+:::
+
+The `range` option is **not** available on the `disk.get` method. Slicing a file at an arbitrary byte boundary can split
+a multi-byte UTF-8 character, which would break `get`'s contract of returning a valid UTF-8 string. Use `getBytes` or 
+`getStream` for partial reads instead.
 
 ## Write options
 

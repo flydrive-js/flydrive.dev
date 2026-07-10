@@ -42,6 +42,14 @@ await file.getStream()
 await file.getBytes()
 
 /**
+ * The "getStream" and "getBytes" methods also accept a
+ * "range" to read a subset of the file's bytes.
+ * See the Disk API documentation for details.
+ */
+await file.getStream({ range: { start: 0, end: 1023 } })
+await file.getBytes({ range: { start: 0, end: 1023 } })
+
+/**
  * Get file metadata
  */
 await file.getMetaData()
