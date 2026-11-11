@@ -72,6 +72,12 @@
     "category": "Services"
   },
   {
+    "permalink": "services/neon",
+    "title": "Neon Object Storage",
+    "contentPath": "./services/neon-object-storage.md",
+    "category": "Services"
+  },
+  {
     "permalink": "advanced/custom_drivers",
     "title": "Creating a driver",
     "contentPath": "./advanced/custom_drivers.md",
